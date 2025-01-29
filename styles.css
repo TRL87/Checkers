@@ -44,3 +44,7 @@ body {
 .black-piece {
     background-color: black;
 }
+
+.selected {
+    border: 2px solid yellow;
+}
