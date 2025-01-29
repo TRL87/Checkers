@@ -35,6 +35,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: 4px solid white; /* Increase border thickness */
 }
 
 .red-piece {
@@ -46,5 +47,5 @@ body {
 }
 
 .selected {
-    border: 2px solid yellow;
+    border: 4px solid yellow; /* Match selection border thickness */
 }
