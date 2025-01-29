@@ -32,10 +32,10 @@ body {
 }
 
 .piece {
-    width: 40px;
-    height: 40px;
+    width: 36px;               /* Adjusted size for better visibility */
+    height: 36px;              /* Adjusted size for better visibility */
     border-radius: 50%;
-    border: 4px solid white; /* Increase border thickness */
+    border: 6px solid white;   /* Increase border thickness */
 }
 
 .red-piece {
@@ -47,5 +47,5 @@ body {
 }
 
 .selected {
-    border: 4px solid yellow; /* Match selection border thickness */
+    border: 6px solid yellow;  /* Match selection border thickness */
 }
