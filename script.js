@@ -102,13 +102,13 @@ const getValidMoves = (piece) => {
         if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
             const square = document.querySelector(`[data-row="${newRow}"][data-col="${newCol}"]`);
             if (square && !square.querySelector('.piece')) {
-                moves.push(square);
+                moves.push({ piece, square, score: 1 }); // Simple move
             } else if (square && square.querySelector('.piece') && square.querySelector('.piece').dataset.color !== color) {
                 const jumpRow = newRow + dRow;
                 const jumpCol = newCol + dCol;
                 const jumpSquare = document.querySelector(`[data-row="${jumpRow}"][data-col="${jumpCol}"]`);
                 if (jumpSquare && !jumpSquare.querySelector('.piece')) {
-                    moves.push(jumpSquare);
+                    moves.push({ piece, square: jumpSquare, score: 3 }); // Capture move
                 }
             }
         }
@@ -119,22 +119,23 @@ const getValidMoves = (piece) => {
 
 const computerMove = () => {
     const pieces = Array.from(document.querySelectorAll('.black-piece'));
-    let moveMade = false;
+    let bestMove = null;
+    let bestScore = -Infinity;
 
-    while (pieces.length > 0 && !moveMade) {
-        const pieceIndex = Math.floor(Math.random() * pieces.length);
-        const piece = pieces.splice(pieceIndex, 1)[0];
+    pieces.forEach(piece => {
         const validMoves = getValidMoves(piece);
+        validMoves.forEach(move => {
+            if (move.score > bestScore) {
+                bestScore = move.score;
+                bestMove = move;
+            }
+        });
+    });
 
-        if (validMoves.length > 0) {
-            const moveIndex = Math.floor(Math.random() * validMoves.length);
-            const move = validMoves[moveIndex];
-            movePiece.call({ target: move }, move);
-            moveMade = true;
-        }
-    }
-
-    if (!moveMade) {
+    if (bestMove) {
+        selectedPiece = bestMove.piece;
+        movePiece(bestMove.square);
+    } else {
         alert('Game Over! No more moves for the computer.');
     }
 };
